@@ -40,6 +40,11 @@ jobs:
   build_linarm:
     name: Build Ubuntu ARM64 artifacts
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+        arch: [aarch64]
+        
     steps:
       - name: Prepare Ubuntu ARM64 tools
         run: |
