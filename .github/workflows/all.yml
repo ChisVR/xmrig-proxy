@@ -38,26 +38,18 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.version }}
   build_linarm:
-    name: Build Linux ARM artifacts
-    runs-on: ubuntu-latest
-    
-    strategy:
-      matrix:
-        os: [ubuntu-20.04]
-        arch: [arm64]
-
+    name: Build Ubuntu ARM64 artifacts
+    runs-on: ubuntu-20.04
     steps:
-      - name: Prepare Ubuntu tools
+      - name: Prepare Ubuntu ARM64 tools
         run: |
           sudo apt-get install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
-
       - name: Checkout Repository master branch
         uses: actions/checkout@v2
         with:
           repository: NekoSuneVR/xmrig-proxy
           ref: master
-
-      - name: Build project on Ubuntu ARM
+      - name: Build project on Ubuntu ARM64
         run: |
           echo "XMRIG_VERSION="`cat src/version.h | grep -Eo "APP_VERSION\s+\"(.+?)\"" | awk -F "\"" '{print $2}'` >> $GITHUB_ENV
           sed -i 's/DonateLevel = 1/DonateLevel = 0/g' src/donate.h || true
@@ -65,11 +57,10 @@ jobs:
           make -j$(nproc)
           cp src/config.json .
           tar cfz ubuntu_buildarm.tar.gz xmrig-proxy config.json
-
-      - name: Upload Ubuntu ARM build artifacts
+      - name: Upload Ubuntu ARM64 build artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: ubuntu_buildarm
+          name: ubuntu_buildaarm
           path: ubuntu_buildarm.tar.gz  
   build_linamd:
     name: Build Linux AMD artifacts
