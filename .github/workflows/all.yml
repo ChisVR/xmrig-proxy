@@ -38,12 +38,8 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.version }}
   build_linarm:
-    runs-on: ubuntu-latest
-    
-    strategy:
-      matrix:
-        os: [ubuntu-20.04]
-        arch: [aarch64]
+    name: Build Linux ARM artifacts
+    runs-on: self-hosted
 
     steps:
       - name: Prepare Ubuntu tools
