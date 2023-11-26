@@ -38,6 +38,7 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.version }}
   build_linarm:
+    name: Build Linux ARM artifacts
     runs-on: ubuntu-latest
     
     strategy:
@@ -89,7 +90,7 @@ jobs:
           cmake .
           make -j$(nproc)
           cp src/config.json .
-          tar cfz ubuntu_build.tar.gz xmrig-proxy config.json
+          tar cfz ubuntu_buildamd.tar.gz xmrig-proxy config.json
       - name: Upload Ubuntu build artifacts
         uses: actions/upload-artifact@v1
         with:
