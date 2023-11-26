@@ -163,7 +163,7 @@ jobs:
         with:
           name: ubuntu_buildamd
       - name: Download Linux ARM build artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v1
         with:
           name: ubuntu_buildarm
       - name: Download MacOS build artifact
@@ -185,7 +185,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ubuntu_build/ubuntu_buildamd.tar.gz
+          asset_path: ubuntu_buildamd/ubuntu_buildamd.tar.gz
           asset_name: xmrig-proxy-${{ needs.build_win.outputs.version }}-linAMD64.tar.gz
           asset_content_type: application/zip
       - name: Upload Ubuntu ARM build release asset
@@ -194,7 +194,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ubuntu_build/ubuntu_buildarm.tar.gz
+          asset_path: ubuntu_buildarm/ubuntu_buildarm.tar.gz
           asset_name: xmrig-proxy-${{ needs.build_win.outputs.version }}-linARM64.tar.gz
           asset_content_type: application/zip
       - name: Upload MacOS build release asset
